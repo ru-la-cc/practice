@@ -72,6 +72,6 @@ $(function(){
 				しかし${korewotanomu}と次から${teninmark}という危険も伴う、諸刃の剣。<br>
 				素人にはお薦め出来ない。<br>
 				まあお前らド素人は、${gyusyake}ってこった。`;
-			$("#copipe").html(YOSHINOYA_BASE);
+		$("#copipe").html(YOSHINOYA_BASE);
 	});
 });
