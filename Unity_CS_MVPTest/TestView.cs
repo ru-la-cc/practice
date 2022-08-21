@@ -8,25 +8,30 @@ namespace Test
 {
     public class TestView : MonoBehaviour
     {
-        [Tooltip("ATKボタン")]
-        public Button buttonHanakaya;
+        [SerializeField, Tooltip("ATKボタン")]
+        Button buttonHanakaya;
 
-        [Tooltip("操作対象のモデル")]
-        public GameObject character;
+        [SerializeField, Tooltip("操作対象のモデル")]
+        GameObject character;
 
-        [Tooltip("アニメーションコントローラ")]
-        public Animator animator;
+        [SerializeField, Tooltip("アニメーションコントローラ")]
+        Animator animator;
 
-        [Tooltip("デバッグ用")]
-        public Text debugText;
+        [SerializeField, Tooltip("デバッグ用")]
+        Text debugText;
 
-        [Tooltip("ミク追従カメラ")]
-        public Camera mikuCamera;
+        [SerializeField, Tooltip("ミク追従カメラ")]
+        Camera mikuCamera;
 
-        [Tooltip("カメラオフセット")]
-        public Vector3 cameraPos;
+        [SerializeField, Tooltip("カメラオフセット")]
+        Vector3 cameraPos;
 
-        public Camera mCamera => mikuCamera;
+        public Button HanayamButton => buttonHanakaya;
+        public GameObject CharaModel => character;
+        public Animator AnimatorController => animator;
+        public Text DebugText => debugText;
+        public Camera MikuCamera => mikuCamera;
+        public Vector3 CameraPos => cameraPos;
 
         public Action<Vector3> OnCameraPositionChangeHandler;
         public Action OnHanayamaAttackHandler;

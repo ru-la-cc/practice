@@ -51,16 +51,16 @@ namespace Test
             if(!m_isIdle && !m_isAttack)
             {
                 m_verocity.Set(m_Horizontal * 0.2f * Time.deltaTime, 0, m_Vertical * 0.2f * Time.deltaTime);
-                view.character.transform.position += m_verocity;
-                view.character.transform.rotation = Quaternion.LookRotation(m_verocity.normalized);
+                view.CharaModel.transform.position += m_verocity;
+                view.CharaModel.transform.rotation = Quaternion.LookRotation(m_verocity.normalized);
             }
-            model.RcVec3.Value = view.character.transform.position;
+            model.RcVec3.Value = view.CharaModel.transform.position;
             view.SetIdleState(m_isIdle);
         }
 
         void InitControls()
         {
-            view.buttonHanakaya
+            view.HanayamButton
             .OnClickAsObservable()
             .ThrottleFirst(TimeSpan.FromMilliseconds(1000))
             .Subscribe(async _ => {
@@ -78,13 +78,13 @@ namespace Test
 
         void OnPositionChange(Vector3 vec3)
         {
-            view.debugText.text = $"X:{vec3.x} Y:{vec3.y} Z:{vec3.z}";
-            view.mikuCamera.transform.position = vec3 + view.cameraPos;
+            view.DebugText.text = $"X:{vec3.x} Y:{vec3.y} Z:{vec3.z}";
+            view.MikuCamera.transform.position = vec3 + view.CameraPos;
         }
 
         void OnHanayamaAttack()
         {
-            view.animator.SetTrigger("TriggerAttack");
+            view.AnimatorController.SetTrigger("TriggerAttack");
         }
 
         void SetHandler()
