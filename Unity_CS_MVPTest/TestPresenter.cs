@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 // using UnityEngine.UI;
 using UniRx;
-// using UniRx.Triggers;
+using UniRx.Triggers;
 using Cysharp.Threading.Tasks;
 
 namespace Test
@@ -20,6 +20,7 @@ namespace Test
         Vector3 m_verocity;
         [SerializeField, Tooltip("攻撃硬直時間(ms)")] const int attack_wait = 3500;
         bool m_isAttack = false;
+
 
         bool IsIdle() => Math.Abs(m_Horizontal) < 0.01f && Math.Abs(m_Vertical) < 0.01f;
 
@@ -50,7 +51,7 @@ namespace Test
             m_isIdle = IsIdle();
             if(!m_isIdle && !m_isAttack)
             {
-                m_verocity.Set(m_Horizontal * 0.2f * Time.deltaTime, 0, m_Vertical * 0.2f * Time.deltaTime);
+                m_verocity.Set(m_Horizontal * 0.5f * Time.deltaTime, 0, m_Vertical * 0.5f * Time.deltaTime);
                 view.CharaModel.transform.position += m_verocity;
                 view.CharaModel.transform.rotation = Quaternion.LookRotation(m_verocity.normalized);
             }
@@ -74,6 +75,24 @@ namespace Test
             model.RcVec3
             .Subscribe(view.OnCameraPositionChanced)
             .AddTo(gameObject);
+
+            view.Hyahha.OnCollisionEnterAsObservable()
+            .Where(hit => hit.gameObject.tag == "MikuRightHand")
+            .Subscribe(hit =>
+            {
+                view.OnHitHanayamaPunch(hit);
+            });
+
+        }
+
+        void OnHitHanayamaPunch(Collision other)
+        {
+            var hyahhabody = view.Hyahha.GetComponent<Rigidbody>();
+            Vector3 hit = other.contacts[0].point;
+            Vector3 vec = hit * -1;
+            vec.Normalize();
+            vec *= 50;
+            hyahhabody.AddForce(vec, ForceMode.VelocityChange);
         }
 
         void OnPositionChange(Vector3 vec3)
@@ -91,6 +110,7 @@ namespace Test
         {
             view.OnCameraPositionChangeHandler = OnPositionChange;
             view.OnHanayamaAttackHandler = OnHanayamaAttack;
+            view.HitHanayamaPunchHandler = OnHitHanayamaPunch;
         }
 
         async UniTask AttackingAsync()

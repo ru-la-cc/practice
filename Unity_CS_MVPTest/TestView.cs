@@ -26,15 +26,20 @@ namespace Test
         [SerializeField, Tooltip("カメラオフセット")]
         Vector3 cameraPos;
 
+        [SerializeField, Header("ヒャッハー！")]
+        GameObject hyahha;
+
         public Button HanayamButton => buttonHanakaya;
         public GameObject CharaModel => character;
         public Animator AnimatorController => animator;
         public Text DebugText => debugText;
         public Camera MikuCamera => mikuCamera;
         public Vector3 CameraPos => cameraPos;
+        public GameObject Hyahha => hyahha;
 
         public Action<Vector3> OnCameraPositionChangeHandler;
         public Action OnHanayamaAttackHandler;
+        public Action<Collision> HitHanayamaPunchHandler;
 
         public void SetIdleState(bool isIdle) => animator.SetBool("IsIdle", isIdle);
 
@@ -48,6 +53,11 @@ namespace Test
         void Update()
         {
             
+        }
+
+        public void OnHitHanayamaPunch(Collision other)
+        {
+            HitHanayamaPunchHandler?.Invoke(other);
         }
 
         public void OnCameraPositionChanced(Vector3 vec3)
