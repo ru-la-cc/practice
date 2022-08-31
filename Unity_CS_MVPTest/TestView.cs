@@ -23,18 +23,20 @@ namespace Test
         [SerializeField, Tooltip("ミク追従カメラ")]
         Camera mikuCamera;
 
-        [SerializeField, Tooltip("カメラオフセット")]
-        Vector3 cameraPos;
+        [Tooltip("カメラオフセット")]
+        public Vector3 CameraPos;
+
+        [Tooltip("カメラ回転")]
+        public Quaternion CameraRota;
 
         [SerializeField, Header("ヒャッハー！")]
         GameObject hyahha;
-
+        
         public Button HanayamButton => buttonHanakaya;
         public GameObject CharaModel => character;
         public Animator AnimatorController => animator;
         public Text DebugText => debugText;
         public Camera MikuCamera => mikuCamera;
-        public Vector3 CameraPos => cameraPos;
         public GameObject Hyahha => hyahha;
 
         public Action<Vector3> OnCameraPositionChangeHandler;
